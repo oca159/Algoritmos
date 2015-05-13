@@ -17,7 +17,8 @@ void imprimeMatriz(int matriz[][10], int max){
 
 void imprimeCamino(string camino, int matriz[][10], int & mascorto, string & caminoCorto){
 	char v1, v2;
-	int costo = 0;
+	int costo = 0, valor;
+	bool b = true;
 	string temp = "";
 	for (int i = 0; i < camino.size()-1; ++i)
 	{
@@ -25,11 +26,14 @@ void imprimeCamino(string camino, int matriz[][10], int & mascorto, string & cam
 		v2 = camino[i+1];
 		temp += v1;
 		temp += ", ";
-		costo += matriz[(int) (toupper(v1)-65)][(int) (toupper(v2)-65)];
+		valor = matriz[(int) (toupper(v1)-65)][(int) (toupper(v2)-65)];
+		if(valor==0)
+			b = false;
+		costo += valor;
 	}
 	temp += camino[0]; 
 	temp += " "; 
-	if(costo< mascorto){
+	if(costo< mascorto && b){
 		mascorto = costo;
 		caminoCorto = temp;
 	}
