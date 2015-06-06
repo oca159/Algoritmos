@@ -7,7 +7,7 @@ struct Nodo
 };
 
 const int INFINITO  = 10000;
-list<char> adyacentes;
+string adyacentes = "";
 
 void inicializarMatriz(int matriz[][10], int max){
 	for (int i = 0; i < max; ++i)
@@ -35,13 +35,13 @@ void imprimeListaNodos(Nodo lista[], int max){
 void actualizarLista(Nodo lista[], char actual, int matriz[][10], int max){
 	for (int j = 0; j < max; ++j)
 		if(matriz[(int) actual-65][j]!=INFINITO && matriz[(int) actual-65][j]!= 0)
-			adyacentes.push_back((char) j+65);		
+			adyacentes += (char) (j+65);		
 	int tam = adyacentes.size();
 	char c;
 	for (int i = 0, x, y; i < tam; ++i)
 	{
-		c = adyacentes.front(); 
-		adyacentes.pop_front();
+		c = adyacentes[0]; 
+		adyacentes.erase(0,1);
 		x = (int) (toupper(c)-65); // el elemento de la lista
 		y = (int) (toupper(actual)-65); // convertimos a número el elemento actual
 		if(lista[x].distancia>(lista[y].distancia+matriz[x][y])){
@@ -49,4 +49,10 @@ void actualizarLista(Nodo lista[], char actual, int matriz[][10], int max){
 			lista[x].distancia = lista[y].distancia+matriz[x][y];
 		}
 	}
+}
+
+char encuentraNodo(char visitados[], int nodos){
+	for (int i = 0; i < nodos; ++i)
+		if (visitados[i] != '*')
+			return visitados[i];
 }

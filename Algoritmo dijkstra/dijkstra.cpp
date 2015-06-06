@@ -1,15 +1,13 @@
 #include <iostream>
 #include <string.h>
-#include <list>
 #include <ctype.h>
 #include "funciones.h"
 
 int main() {
-	list<char> visitados;
+	char visitados[] = {'A','B','C','D','E','F','G','H','I','J'};
 	int nodos,conexiones, costo;
 	char v1, v2, nodoInicial, actual;
-	Nodo lista[10];
-	Nodo nodo;
+	Nodo lista[10], nodo;
 	int matriz[10][10];
 	cin >> nodos >> conexiones;
 	inicializarMatriz(matriz,nodos);
@@ -31,15 +29,12 @@ int main() {
 	lista[(int) nodoInicial-65].distancia = 0; /* Actualizamos distancia del fuente */
 	actual = nodoInicial;
 	for (int i = 0; i < nodos; ++i)
-		visitados.push_back((char) i+65);
-	for (int i = 0; i < nodos; ++i)
 	{
 		actualizarLista(lista, actual, matriz, nodos);
-		visitados.remove(actual);
-		actual = visitados.front();
+		visitados[(int)(actual-65)] = '*';
+		actual = encuentraNodo(visitados, nodos);
 	}
 	imprimeListaNodos(lista,nodos);
-	
 	cin.get();
 	return 0;
 }
